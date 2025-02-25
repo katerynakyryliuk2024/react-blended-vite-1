@@ -6,11 +6,28 @@ import Heading from './components/Heading/Heading';
 import Section from './components/Section/Section';
 import Statistics from './components/Statistics/Statistics';
 import forbes from './data/forbes.json';
+import { useState } from 'react';
+
+const CustomButton = ({ message, children }) => {
+  return <button onClick={() => alert(message)}>{children}</button>;
+};
 
 export const App = () => {
+  const [clicks, setClicks] = useState(0);
+
+  const handleClick = () => {
+    clicks = clicks + 1;
+  };
   return (
     <Section>
       <Container>
+        <>
+          <CustomButton message="Playing music!">Play some music</CustomButton>
+          <CustomButton message="Uploading your data!">
+            Upload data
+          </CustomButton>
+        </>
+
         <Heading title="Task 1 Blog Card" bottom />
         <BlogCard />
 

@@ -40,6 +40,7 @@ button {
   color: inherit;
   background-color: transparent;
   cursor: pointer;
+  border: 2px solid black;
 }
 
 a {
