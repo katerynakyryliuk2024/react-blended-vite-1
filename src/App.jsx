@@ -9,19 +9,34 @@ import forbes from './data/forbes.json';
 import { useState, useEffect } from 'react';
 
 export const App = () => {
-  const [clicks, setClicks] = useState(0);
+  const [clicks, setClicks] = useState(() => {
+    // Зчитуємо значення за ключем
+    const savedClicks = window.localStorage.getItem('saved-clicks');
 
-  // ❌ Ефект записаний з помилкою!
+    // Якщо там щось є, повертаємо це
+    // значення як початкове значення стану
+    if (savedClicks !== null) {
+      return savedClicks;
+    }
+
+    // У протилежному випадку повертаємо
+    // яке-небудь значення за замовчуванням
+    return 0;
+  });
+
   useEffect(() => {
-    console.log('Clicks updated: ', clicks);
+    window.localStorage.setItem('saved-clicks', clicks);
   }, [clicks]);
+
   return (
     <Section>
       <Container>
-        <button onClick={() => setClicks(clicks + 1)}>
-          You clicked {clicks} times
-        </button>
-
+        <div>
+          <button onClick={() => setClicks(clicks + 1)}>
+            You clicked {clicks} times
+          </button>
+          <button onClick={() => setClicks(0)}>Reset</button>
+        </div>
         <Heading title="Task 1 Blog Card" bottom />
         <BlogCard />
         <Heading title="Task 2 Statistics" top bottom />
